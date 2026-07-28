@@ -1,0 +1,31 @@
+{
+  "id": "investor-pitch",
+  "skill": "generate-presentation-demo",
+  "prompt": "Create an eight-slide seed fundraising deck for an AI support startup. The audience is skeptical early-stage investors.",
+  "requirements": [
+    {
+      "id": "audience-and-decision",
+      "description": "The process anchors the deck in an audience and a desired decision.",
+      "signals": ["audience", "decision or action"],
+      "repair": "State the audience and the decision or action the deck must produce before outlining slides."
+    },
+    {
+      "id": "evidence-and-sources",
+      "description": "Claims have evidence and source notes.",
+      "signals": ["evidence", "source notes"],
+      "repair": "Support consequential claims with evidence and add source notes with direct links or document references."
+    },
+    {
+      "id": "single-message-slides",
+      "description": "Each slide carries one message and an answer-first title.",
+      "signals": ["one idea per slide", "answer-first title"],
+      "repair": "Keep one idea per slide and write an answer-first title that states the slide's conclusion."
+    },
+    {
+      "id": "visual-specificity",
+      "description": "Every content slide has a concrete visual treatment.",
+      "signals": ["visual plan", "layout"],
+      "repair": "Give every content slide a visual plan naming the chart, diagram, image, or layout and the data or message it carries."
+    }
+  ]
+}

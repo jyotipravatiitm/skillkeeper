@@ -1,0 +1,26 @@
+name: Verifier or replay proposal
+description: Propose a deterministic verifier or sanitized failure fixture.
+title: "[Verifier]: "
+labels: ["verifier"]
+body:
+  - type: input
+    id: outcome
+    attributes:
+      label: Observable outcome
+      placeholder: Generated PDF has no overflowing text boxes
+    validations:
+      required: true
+  - type: textarea
+    id: check
+    attributes:
+      label: Deterministic check
+      description: Explain how the outcome can be measured without relying only on an LLM judge.
+    validations:
+      required: true
+  - type: textarea
+    id: fixture
+    attributes:
+      label: Sanitized fixture
+      description: Describe the smallest input and expected result that reproduce the failure.
+    validations:
+      required: true

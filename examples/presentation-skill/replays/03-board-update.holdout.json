@@ -1,0 +1,27 @@
+{
+  "id": "board-update",
+  "skill": "generate-presentation-demo",
+  "prompt": "Create a concise quarterly board update covering growth, retention risk, product delivery, and the decisions required from directors.",
+  "requirements": [
+    {
+      "id": "board-evidence",
+      "description": "Material claims are supported and traceable.",
+      "signals": ["evidence", "source notes"]
+    },
+    {
+      "id": "board-message",
+      "description": "Slides are focused and conclusion-led.",
+      "signals": ["one idea per slide", "answer-first title"]
+    },
+    {
+      "id": "board-visual",
+      "description": "Metrics and decisions receive a concrete visual treatment.",
+      "signals": ["visual plan", "layout"]
+    },
+    {
+      "id": "board-qa",
+      "description": "The final visual artifact is checked.",
+      "signals": ["render", "inspect"]
+    }
+  ]
+}

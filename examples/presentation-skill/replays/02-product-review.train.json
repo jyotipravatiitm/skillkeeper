@@ -1,0 +1,31 @@
+{
+  "id": "product-review",
+  "skill": "generate-presentation-demo",
+  "prompt": "Prepare a product review deck that recommends whether a team should build or buy an analytics platform.",
+  "requirements": [
+    {
+      "id": "narrative-throughline",
+      "description": "The deck has a clear opening and narrative throughline.",
+      "signals": ["opening", "throughline"],
+      "repair": "Create an opening with the tension or decision, then maintain a throughline from evidence to implication to action."
+    },
+    {
+      "id": "tradeoffs-and-recommendation",
+      "description": "Alternatives, trade-offs, and the recommendation are explicit.",
+      "signals": ["trade-off", "recommendation"],
+      "repair": "Make the recommendation explicit and show each material trade-off instead of hiding alternatives."
+    },
+    {
+      "id": "speaker-notes",
+      "description": "The handoff includes concise speaker notes.",
+      "signals": ["speaker notes"],
+      "repair": "Add speaker notes with the point to say, the supporting fact, and the transition to the next slide."
+    },
+    {
+      "id": "render-qa",
+      "description": "The deck is rendered and visually inspected before handoff.",
+      "signals": ["render", "inspect"],
+      "repair": "Render the completed deck, inspect every slide for overflow, legibility, hierarchy, and repetition, then fix defects before handoff."
+    }
+  ]
+}

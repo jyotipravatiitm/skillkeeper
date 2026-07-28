@@ -1,0 +1,40 @@
+name: Bug report
+description: Report incorrect Skillkeeper behavior with a minimal, sanitized reproduction.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include private transcripts, credentials, or customer data.
+  - type: input
+    id: version
+    attributes:
+      label: Skillkeeper version
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - macOS
+        - Linux
+        - Windows
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Include the command, sanitized fixture shape, expected result, and actual result.
+    validations:
+      required: true
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Data and privacy boundary
+      description: Confirm that the report is sanitized and note whether it involves local traces.
+    validations:
+      required: true

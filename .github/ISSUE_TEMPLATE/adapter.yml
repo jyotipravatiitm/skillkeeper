@@ -1,0 +1,33 @@
+name: Runtime adapter proposal
+description: Propose support for an agent runtime, trace source, or skill root.
+title: "[Adapter]: "
+labels: ["adapter"]
+body:
+  - type: input
+    id: runtime
+    attributes:
+      label: Runtime and version
+      placeholder: Claude Code 1.x
+    validations:
+      required: true
+  - type: textarea
+    id: surface
+    attributes:
+      label: Documented integration surface
+      description: Link official hook, export, API, or schema documentation.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence available
+      description: Which stable fields can support task outcome, tool reliability, duration, cost, and skill attribution?
+    validations:
+      required: true
+  - type: textarea
+    id: privacy
+    attributes:
+      label: Privacy considerations
+      description: Explain what can be derived metadata-only and what would require transcript content.
+    validations:
+      required: true

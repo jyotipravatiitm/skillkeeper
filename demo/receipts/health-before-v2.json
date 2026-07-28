@@ -1,0 +1,12 @@
+{
+  "skill": "generate-presentation-demo",
+  "path": "examples/presentation-skill/before",
+  "health": 50.0,
+  "state": "unhealthy",
+  "spec_score": 1.0,
+  "coverage_score": 1.0,
+  "replay_score": 0.0,
+  "passed": 0,
+  "total": 12,
+  "issues": []
+}

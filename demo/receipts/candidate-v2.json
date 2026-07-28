@@ -1,0 +1,24 @@
+{
+  "candidate_id": "generate-presentation-demo-20260727T180309Z-53cc13",
+  "skill_name": "generate-presentation-demo",
+  "baseline_path": "examples/presentation-skill/before",
+  "candidate_path": ".skillkeeper-demo/staging/generate-presentation-demo-20260727T180309Z-53cc13/generate-presentation-demo",
+  "baseline_hash": "9199cd51cd6e",
+  "candidate_hash": "53cc137ac336",
+  "before_score": 0.0,
+  "after_score": 1.0,
+  "holdout_score": 1.0,
+  "minimum_train": 1.0,
+  "minimum_holdout": 0.8,
+  "repairs": [
+    "State the audience and the decision or action the deck must produce before outlining slides.",
+    "Support consequential claims with evidence and add source notes with direct links or document references.",
+    "Keep one idea per slide and write an answer-first title that states the slide's conclusion.",
+    "Give every content slide a visual plan naming the chart, diagram, image, or layout and the data or message it carries.",
+    "Create an opening with the tension or decision, then maintain a throughline from evidence to implication to action.",
+    "Make the recommendation explicit and show each material trade-off instead of hiding alternatives.",
+    "Add speaker notes with the point to say, the supporting fact, and the transition to the next slide.",
+    "Render the completed deck, inspect every slide for overflow, legibility, hierarchy, and repetition, then fix defects before handoff."
+  ],
+  "status": "staged"
+}
