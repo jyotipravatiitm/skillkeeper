@@ -9,5 +9,7 @@ __pycache__/
 .skillkeeper/
 .skillkeeper-demo/
 .venv/
+*.tgz
 build/
 dist/
+node_modules/

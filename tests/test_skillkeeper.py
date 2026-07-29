@@ -1,8 +1,11 @@
 import json
 import tempfile
 import unittest
+from contextlib import redirect_stdout
+from io import StringIO
 from pathlib import Path
 
+from skillkeeper.cli import parser
 from skillkeeper.core import candidate_diff, evaluate, heal, health, load_cases, load_skill, promote, rollback, scan
 from skillkeeper.store import Store
 
@@ -62,6 +65,13 @@ class SkillkeeperTest(unittest.TestCase):
     def tearDown(self):
         self.store.close()
         self.temp.cleanup()
+
+    def test_cli_reports_version(self):
+        output = StringIO()
+        with self.assertRaises(SystemExit) as exit_context, redirect_stdout(output):
+            parser().parse_args(["--version"])
+        self.assertEqual(exit_context.exception.code, 0)
+        self.assertEqual(output.getvalue().strip(), "skillkeeper 0.1.1")
 
     def test_scan_indexes_valid_skill(self):
         records = scan([self.root / "skills"], self.store)

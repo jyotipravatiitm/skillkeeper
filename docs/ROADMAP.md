@@ -49,4 +49,4 @@ Skillkeeper is being built in three layers. Each layer must remain useful withou
 - claiming model-judge scores make autonomous mutation safe
 - auto-promoting destructive or externally visible skills
 
-The detailed activation hypothesis is in [FIRST_10_MINUTES.md](FIRST_10_MINUTES.md).
+Roadmap items are promoted into release milestones only after their data boundary, verifier contract, and user-facing outcome are clear.

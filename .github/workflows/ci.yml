@@ -28,3 +28,19 @@ jobs:
         run: skillkeeper --help
       - name: Run tests
         run: python -m unittest discover -s tests -v
+
+  npm-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          registry-url: https://registry.npmjs.org
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.10"
+      - name: Test npm launcher
+        run: npm test
+      - name: Inspect npm package
+        run: npm pack --dry-run

@@ -10,6 +10,58 @@ Skillkeeper is a local-first control plane for the skills your AI agents depend 
 
 > Healing creates a candidate. It never silently edits the live skill.
 
+## Install
+
+Skillkeeper is a Python CLI. The npm package bundles the Skillkeeper Python source and a small cross-platform launcher, so npm users do not need pip or uv. Both installation paths require Python 3.10 or newer on the machine.
+
+### npm
+
+Try it without a permanent installation:
+
+```bash
+npx skillkeeper --help
+```
+
+Or install the command globally:
+
+```bash
+npm install --global skillkeeper
+skillkeeper --help
+```
+
+### uv
+
+Run the tagged release without cloning the repository:
+
+```bash
+uvx --from git+https://github.com/jyotipravatiitm/skillkeeper.git@v0.1.1 \
+  skillkeeper --help
+```
+
+### From source
+
+```bash
+git clone https://github.com/jyotipravatiitm/skillkeeper.git
+cd skillkeeper
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+skillkeeper --help
+```
+
+The runtime has no third-party Python dependencies.
+
+## First scan
+
+Run Skillkeeper in a project containing `.agents/skills`, `.claude/skills`, or another Agent Skills root:
+
+```bash
+npx skillkeeper scan .agents/skills .claude/skills
+npx skillkeeper inventory
+```
+
+State is stored locally in `.skillkeeper/`. Pass `--state-dir PATH` before the command to use a different location.
+
 ## Why it exists
 
 Agent runtimes execute skills. Registries help you find them. Optimizers can rewrite them. Skillkeeper answers the operational questions around the whole inventory:
@@ -32,33 +84,9 @@ The included presentation demo starts with a generic, text-heavy deck skill and 
 
 Open the [before PDF](demo/decks/mcp-like-five-before.pdf), [after PDF](demo/decks/mcp-like-five-after.pdf), or editable [before](demo/decks/mcp-like-five-before.pptx) and [after](demo/decks/mcp-like-five-after.pptx) PowerPoint files. The [demo report](demo/README.md) contains the evaluation receipts and the honest boundary of the result.
 
-## Install
+## Repository demo
 
-### From this repository
-
-```bash
-git clone https://github.com/jyotipravatiitm/skillkeeper.git
-cd skillkeeper
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -e .
-skillkeeper --help
-```
-
-The runtime has no third-party Python dependencies. Python 3.10 or newer is required.
-
-### Install directly from GitHub
-
-With [`uv`](https://docs.astral.sh/uv/):
-
-```bash
-uv tool install git+https://github.com/jyotipravatiitm/skillkeeper.git
-skillkeeper --help
-```
-
-## Five-minute quick start
-
-Use the included presentation fixture so your real skills remain untouched:
+After cloning the repository, use the included presentation fixture so your real skills remain untouched:
 
 ```bash
 export SKILLKEEPER_STATE="$PWD/.skillkeeper-demo"
@@ -173,13 +201,11 @@ Keep the state directory outside any scanned skill root.
 
 The current evaluator verifies explicit textual skill contracts deterministically. That is sufficient to prove the staging, evidence, promotion, tamper-checking, audit, and rollback lifecycle.
 
-It does **not** claim that keyword checks measure arbitrary agent quality or presentation taste. Behavioral trace adapters, artifact verifiers, and the terminal **Quality Pulse** are the next product layer. See [The first 10 minutes](docs/FIRST_10_MINUTES.md) for the activation design and [Roadmap](docs/ROADMAP.md) for implementation order.
+It does **not** claim that keyword checks measure arbitrary agent quality or presentation taste. Behavioral trace adapters, artifact verifiers, and a terminal quality view are the next product layer. See the [Roadmap](docs/ROADMAP.md) for implementation order.
 
 ## Documentation
 
 - [Demo and receipts](demo/README.md)
-- [First 10 minutes and Quality Pulse](docs/FIRST_10_MINUTES.md)
-- [Open-source GTM](docs/GTM.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security](SECURITY.md)

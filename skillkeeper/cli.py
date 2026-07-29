@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from . import __version__
 from .core import candidate_diff, evaluate, heal, health, load_cases, promote, rollback, scan
 from .store import Store
 
@@ -15,6 +16,7 @@ def emit(payload: Any) -> None:
 
 def parser() -> argparse.ArgumentParser:
     root = argparse.ArgumentParser(prog="skillkeeper", description="Observe, test, stage, and improve Agent Skills.")
+    root.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     root.add_argument("--state-dir", type=Path, default=Path(".skillkeeper"))
     commands = root.add_subparsers(dest="command", required=True)
 
