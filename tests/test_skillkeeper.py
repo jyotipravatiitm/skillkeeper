@@ -4,8 +4,9 @@ import unittest
 from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
+from unittest.mock import patch
 
-from skillkeeper.cli import parser
+from skillkeeper.cli import main, parser
 from skillkeeper.core import candidate_diff, evaluate, heal, health, load_cases, load_skill, promote, rollback, scan
 from skillkeeper.store import Store
 
@@ -71,13 +72,33 @@ class SkillkeeperTest(unittest.TestCase):
         with self.assertRaises(SystemExit) as exit_context, redirect_stdout(output):
             parser().parse_args(["--version"])
         self.assertEqual(exit_context.exception.code, 0)
-        self.assertEqual(output.getvalue().strip(), "skillkeeper 0.1.1")
+        self.assertEqual(output.getvalue().strip(), "skillkeeper 0.1.2")
 
     def test_scan_indexes_valid_skill(self):
         records = scan([self.root / "skills"], self.store)
         self.assertEqual(records[0]["name"], "demo-skill")
         self.assertEqual(records[0]["issues"], [])
         self.assertEqual(len(self.store.inventory()), 1)
+
+    def test_scan_without_roots_discovers_current_project_recursively(self):
+        ignored_skill = self.root / "node_modules" / "ignored"
+        ignored_skill.mkdir(parents=True)
+        (ignored_skill / "SKILL.md").write_text(WEAK_SKILL.replace("demo-skill", "ignored"), encoding="utf-8")
+        state = self.root / ".skillkeeper-default-test"
+        staged_skill = state / "staging" / "ignored"
+        staged_skill.mkdir(parents=True)
+        (staged_skill / "SKILL.md").write_text(
+            WEAK_SKILL.replace("demo-skill", "ignored-staged"), encoding="utf-8"
+        )
+        output = StringIO()
+        with patch("skillkeeper.cli.Path.cwd", return_value=self.root), redirect_stdout(output):
+            self.assertEqual(main(["--state-dir", str(state), "scan"]), 0)
+        records = json.loads(output.getvalue())
+        self.assertEqual([record["name"] for record in records], ["demo-skill"])
+
+    def test_scan_deduplicates_overlapping_roots(self):
+        records = scan([self.root, self.root / "skills"], self.store)
+        self.assertEqual([record["name"] for record in records], ["demo-skill"])
 
     def test_heal_stages_without_changing_live_skill(self):
         train = load_cases([self.cases / "train.json"])
