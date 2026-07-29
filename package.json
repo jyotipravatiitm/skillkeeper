@@ -1,0 +1,40 @@
+{
+  "name": "skillkeeper",
+  "version": "0.1.1",
+  "description": "Keep every Agent Skill observable, testable, and reversible.",
+  "type": "module",
+  "bin": {
+    "skillkeeper": "npm/bin/skillkeeper.mjs"
+  },
+  "files": [
+    "skillkeeper/**/*.py",
+    "npm/bin/skillkeeper.mjs",
+    "docs/RESEARCH_ORIGIN.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test npm/test/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jyotipravatiitm/skillkeeper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jyotipravatiitm/skillkeeper/issues"
+  },
+  "homepage": "https://github.com/jyotipravatiitm/skillkeeper#readme",
+  "keywords": [
+    "agent-skills",
+    "ai-agents",
+    "llm",
+    "observability",
+    "skillops"
+  ],
+  "author": "Jyoti Pravat Senapati",
+  "license": "Apache-2.0",
+  "preferGlobal": true
+}
