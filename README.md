@@ -74,6 +74,16 @@ Agent runtimes execute skills. Registries help you find them. Optimizers can rew
 
 Skillkeeper follows the open [Agent Skills](https://agentskills.io/specification) folder format. It does not introduce a replacement for `SKILL.md`.
 
+## Research origin
+
+Skillkeeper is inspired by **[Skill Self-Play: Pushing the Frontier of LLM Capability with Co-Evolving Skills](https://arxiv.org/abs/2607.22529v1)** by Huang et al. (2026).
+
+**[Read the original paper (PDF)](https://arxiv.org/pdf/2607.22529v1)** · [Paper page](https://arxiv.org/abs/2607.22529v1) · [Authors' code](https://github.com/Qwen-Applications/skill-self-play) · [Technical lineage and citation](docs/RESEARCH_ORIGIN.md)
+
+The paper proposes a training-time reinforcement-learning loop in which a proposer, solver, and skill controller co-evolve an inventory of skills. Skillkeeper adapts that core feedback-loop idea for everyday agent operations: capture repeatable failures, evaluate a staged skill change, promote it only with evidence, and retain a rollback path.
+
+Skillkeeper is an independent, local SkillOps project—not an implementation or reproduction of the paper's model-training system. The [technical lineage](docs/RESEARCH_ORIGIN.md) explains exactly what was carried over, what was adapted, and what remains future work.
+
 ## See the improvement lifecycle
 
 The included presentation demo starts with a generic, text-heavy deck skill and adds an evidence-backed quality contract. The deck artifacts make the before/after change easy to inspect.
@@ -205,6 +215,7 @@ It does **not** claim that keyword checks measure arbitrary agent quality or pre
 
 ## Documentation
 
+- [Research origin and technical lineage](docs/RESEARCH_ORIGIN.md)
 - [Demo and receipts](demo/README.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Contributing](CONTRIBUTING.md)

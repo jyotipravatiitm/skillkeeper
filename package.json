@@ -9,6 +9,7 @@
   "files": [
     "skillkeeper/**/*.py",
     "npm/bin/skillkeeper.mjs",
+    "docs/RESEARCH_ORIGIN.md",
     "README.md",
     "LICENSE"
   ],
