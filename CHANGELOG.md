@@ -2,6 +2,13 @@
 
 All notable changes to Skillkeeper will be documented here.
 
+## 0.1.2 — 2026-07-29
+
+- Made `skillkeeper scan` discover skills recursively from the current project with no required path arguments.
+- Excluded generated, dependency, virtual-environment, and version-control directories from automatic scans.
+- Deduplicated skills when explicit scan roots overlap.
+- Simplified the first-run documentation around the current-project workflow.
+
 ## 0.1.1 — 2026-07-29
 
 - Added an npm launcher for `npx skillkeeper` and global npm installation.

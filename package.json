@@ -1,6 +1,6 @@
 {
   "name": "skillkeeper",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Keep every Agent Skill observable, testable, and reversible.",
   "type": "module",
   "bin": {

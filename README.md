@@ -16,17 +16,18 @@ Skillkeeper is a Python CLI. The npm package bundles the Skillkeeper Python sour
 
 ### npm
 
-Try it without a permanent installation:
-
-```bash
-npx skillkeeper --help
-```
-
-Or install the command globally:
+Install it once, then run it from any project:
 
 ```bash
 npm install --global skillkeeper
-skillkeeper --help
+cd your-project
+skillkeeper scan
+```
+
+Or try it without installing:
+
+```bash
+npx skillkeeper scan
 ```
 
 ### uv
@@ -34,7 +35,7 @@ skillkeeper --help
 Run the tagged release without cloning the repository:
 
 ```bash
-uvx --from git+https://github.com/jyotipravatiitm/skillkeeper.git@v0.1.1 \
+uvx --from git+https://github.com/jyotipravatiitm/skillkeeper.git@v0.1.2 \
   skillkeeper --help
 ```
 
@@ -53,12 +54,15 @@ The runtime has no third-party Python dependencies.
 
 ## First scan
 
-Run Skillkeeper in a project containing `.agents/skills`, `.claude/skills`, or another Agent Skills root:
+Open any project and scan it:
 
 ```bash
-npx skillkeeper scan .agents/skills .claude/skills
-npx skillkeeper inventory
+cd your-project
+skillkeeper scan
+skillkeeper inventory
 ```
+
+`scan` recursively discovers `SKILL.md` packages in the current folder, including `.agents/skills` and `.claude/skills`. It skips generated, virtual-environment, version-control, and dependency directories. You can still provide one or more paths when you intentionally want to scan outside the current project.
 
 State is stored locally in `.skillkeeper/`. Pass `--state-dir PATH` before the command to use a different location.
 
