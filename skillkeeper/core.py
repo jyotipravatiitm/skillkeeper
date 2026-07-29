@@ -3,6 +3,7 @@ from __future__ import annotations
 import difflib
 import hashlib
 import json
+import os
 import re
 import shutil
 from dataclasses import dataclass
@@ -16,6 +17,29 @@ from .store import Store
 FRONTMATTER = re.compile(r"\A---\s*\n(.*?)\n---\s*\n(.*)\Z", re.DOTALL)
 DEPENDENCY = re.compile(r"\$([a-z0-9][a-z0-9-]{0,63})")
 MARKDOWN_LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
+IGNORED_SCAN_DIRS = {
+    ".git",
+    ".hg",
+    ".next",
+    ".mypy_cache",
+    ".nox",
+    ".nuxt",
+    ".output",
+    ".pytest_cache",
+    ".skillkeeper",
+    ".svn",
+    ".tox",
+    ".turbo",
+    ".venv",
+    "__pycache__",
+    "build",
+    "coverage",
+    "dist",
+    "node_modules",
+    "target",
+    "vendor",
+    "venv",
+}
 
 
 def content_hash(text: str) -> str:
@@ -85,28 +109,53 @@ def load_skill(path: Path) -> Skill:
     )
 
 
+def find_skill_files(roots: Iterable[Path], ignored_paths: Iterable[Path] = ()) -> list[Path]:
+    skill_files: set[Path] = set()
+    ignored = {path.resolve() for path in ignored_paths}
+    for raw_root in roots:
+        root = raw_root.resolve()
+        if root in ignored:
+            continue
+        if root.is_file():
+            if root.name == "SKILL.md":
+                skill_files.add(root)
+            continue
+        if not root.is_dir():
+            continue
+        for current, directory_names, file_names in os.walk(root):
+            current_path = Path(current)
+            directory_names[:] = sorted(
+                name
+                for name in directory_names
+                if name not in IGNORED_SCAN_DIRS and (current_path / name).resolve() not in ignored
+            )
+            if "SKILL.md" in file_names:
+                skill_files.add((Path(current) / "SKILL.md").resolve())
+    return sorted(skill_files)
+
+
 def scan(roots: Iterable[Path], store: Store) -> list[dict[str, Any]]:
+    resolved_roots = [root.resolve() for root in roots]
     records: list[dict[str, Any]] = []
-    for root in roots:
-        for skill_file in sorted(root.resolve().glob("*/SKILL.md")):
-            skill = load_skill(skill_file)
-            record = {
-                "name": skill.name,
-                "path": str(skill.path),
-                "description": skill.description,
-                "content_hash": skill.hash,
-                "dependencies": list(skill.dependencies),
-                "issues": list(skill.issues),
-            }
-            store.upsert_skill(record)
-            records.append(record)
+    for skill_file in find_skill_files(resolved_roots, [store.state_dir]):
+        skill = load_skill(skill_file)
+        record = {
+            "name": skill.name,
+            "path": str(skill.path),
+            "description": skill.description,
+            "content_hash": skill.hash,
+            "dependencies": list(skill.dependencies),
+            "issues": list(skill.issues),
+        }
+        store.upsert_skill(record)
+        records.append(record)
     names = {record["name"] for record in records}
     for record in records:
         unresolved = sorted(set(record["dependencies"]) - names)
         if unresolved:
             record["issues"].extend(f"unresolved-skill:{name}" for name in unresolved)
             store.upsert_skill(record)
-    store.event("inventory.scanned", None, {"roots": [str(p.resolve()) for p in roots], "count": len(records)})
+    store.event("inventory.scanned", None, {"roots": [str(root) for root in resolved_roots], "count": len(records)})
     return records
 
 

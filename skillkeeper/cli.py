@@ -20,8 +20,13 @@ def parser() -> argparse.ArgumentParser:
     root.add_argument("--state-dir", type=Path, default=Path(".skillkeeper"))
     commands = root.add_subparsers(dest="command", required=True)
 
-    inventory = commands.add_parser("scan", help="Index skill roots and discover dependencies")
-    inventory.add_argument("roots", nargs="+", type=Path)
+    inventory = commands.add_parser("scan", help="Discover skills in the current project")
+    inventory.add_argument(
+        "roots",
+        nargs="*",
+        type=Path,
+        help="folders to scan recursively (default: current folder)",
+    )
 
     listed = commands.add_parser("inventory", help="Show the current indexed inventory")
 
@@ -62,7 +67,7 @@ def main(argv: list[str] | None = None) -> int:
     store = Store(args.state_dir)
     try:
         if args.command == "scan":
-            emit(scan(args.roots, store))
+            emit(scan(args.roots or [Path.cwd()], store))
         elif args.command == "inventory":
             emit(store.inventory())
         elif args.command == "evaluate":
